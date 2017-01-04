@@ -1,1 +1,23 @@
 /*styles for home content only*/
+
+#alertError.active {
+    opacity: 1.0;
+}
+
+#alertError {
+    position: absolute;
+    z-index: 9999;
+    display: block;
+    pointer-events: none;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    opacity: 0;
+
+    -webkit-transition: all 1s ease-in;
+    -moz-transition: all 1s ease-in;
+    -ms-transition: all 1s ease-in;
+    -o-transition: all 1s ease-in;
+    transition: all 1s ease-in;
+    max-height: 200px;
+}

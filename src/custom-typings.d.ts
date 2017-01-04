@@ -43,8 +43,7 @@ import * as _ from 'lodash'
  *
  */
 
-// support NodeJS modules without type definitions
-declare module '*';
+
 
 /*
 // for legacy tslint etc to understand rename 'modern-lru' with your package
@@ -59,6 +58,7 @@ declare module 'modern-lru' {
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
 declare var HMR: boolean;
+declare var E2E: boolean;
 declare var System: SystemJS;
 
 interface SystemJS {
@@ -68,6 +68,7 @@ interface SystemJS {
 interface GlobalEnvironment {
   ENV: string;
   HMR: boolean;
+  E2E: boolean;
   SystemJS: SystemJS;
   System: SystemJS;
 }

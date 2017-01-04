@@ -15,6 +15,8 @@ import {
   PreloadAllModules
 } from '@angular/router';
 
+
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -25,14 +27,16 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './home';
-import { AboutComponent } from './about';
+import { LoggedinComponent, AuthService } from './loggedin';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
+import { ModalModule } from 'ng2-modal';
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  AuthService
 ];
 
 type StoreType = {
@@ -48,7 +52,7 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    AboutComponent,
+    LoggedinComponent,
     HomeComponent,
     NoContentComponent,
     XLargeDirective
@@ -57,6 +61,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
+     ModalModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

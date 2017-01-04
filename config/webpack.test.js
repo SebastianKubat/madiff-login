@@ -13,6 +13,8 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
+const E2E = true;
+
 /**
  * Webpack Constants
  */
@@ -187,9 +189,11 @@ module.exports = function (options) {
       new DefinePlugin({
         'ENV': JSON.stringify(ENV),
         'HMR': false,
+        'E2E': E2E,
         'process.env': {
           'ENV': JSON.stringify(ENV),
           'NODE_ENV': JSON.stringify(ENV),
+          'E2E': E2E,
           'HMR': false,
         }
       }),

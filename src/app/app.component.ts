@@ -6,7 +6,11 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppState } from './app.service';
+import { AuthService } from './loggedin';
+import { HomeComponent } from './home';
+require('!style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
 
 /*
  * App Component
@@ -19,46 +23,25 @@ import { AppState } from './app.service';
     './app.component.css'
   ],
   template: `
+  
     <nav>
-      <span>
-        <a [routerLink]=" ['./'] ">
-          Index
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./home'] ">
-          Home
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./detail'] ">
-          Detail
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./about'] ">
-          About
-        </a>
-      </span>
+    <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link disabled"  style="cursor: default;" href="#">Account</a>
+    </li>
+    <li class="nav-item" *ngIf="!isLoggedIn" (click)="showLoginModal()"  >
+      <a class="nav-link" href="javascript:void(0)" id="btsignin" >sign in</a>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn" >
+      <a class="nav-link" href="javascript:void(0)" id="btlogout" (click)="logout()" >logout</a>
+    </li>
+  </ul>
     </nav>
 
-    <main>
-      <router-outlet></router-outlet>
-    </main>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
-    <footer>
-      <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
-      <div>
-        <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
-        </a>
-      </div>
-    </footer>
   `
 })
 export class AppComponent implements OnInit {
@@ -67,11 +50,30 @@ export class AppComponent implements OnInit {
   public url = 'https://twitter.com/AngularClass';
 
   constructor(
-    public appState: AppState
-  ) {}
+    public appState: AppState,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   public ngOnInit() {
     console.log('Initial App State', this.appState.state);
+    console.log('E2E', E2E)
+    console.log('E2E', typeof E2E)
+  }
+
+  get isLoggedIn() {
+    if (this.auth.isLoggedIn()) {
+      HomeComponent.hideModal();
+    }
+    return this.auth.isLoggedIn();
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  showLoginModal() {
+    HomeComponent.showModal();
   }
 
 }

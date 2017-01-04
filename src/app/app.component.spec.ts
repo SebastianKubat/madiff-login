@@ -5,10 +5,17 @@ import {
   TestBed,
   ComponentFixture
 } from '@angular/core/testing';
+import { AuthService } from './loggedin';
+import { HttpModule } from '@angular/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 import { AppState } from './app.service';
+import { ROUTES } from './app.routes';
+import { HomeComponent } from './home';
+import { LoggedinComponent } from './loggedin';
+import { NoContentComponent } from './no-content';
 
 describe(`App`, () => {
   let comp: AppComponent;
@@ -17,17 +24,20 @@ describe(`App`, () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent ],
+      imports: [HttpModule,
+        RouterTestingModule.withRoutes(ROUTES)
+      ],
+      declarations: [AppComponent, HomeComponent, LoggedinComponent, NoContentComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [AppState]
+      providers: [AppState, AuthService]
     })
-    .compileComponents(); // compile template and css
+      .compileComponents(); // compile template and css
   }));
 
   // synchronous beforeEach
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
-    comp    = fixture.componentInstance;
+    comp = fixture.componentInstance;
 
     fixture.detectChanges(); // trigger initial data binding
   });

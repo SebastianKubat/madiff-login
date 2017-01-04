@@ -6,6 +6,8 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import {
   BaseRequestOptions,
   ConnectionBackend,
@@ -16,7 +18,11 @@ import { MockBackend } from '@angular/http/testing';
 // Load the implementations that should be tested
 import { AppState } from '../app.service';
 import { HomeComponent } from './home.component';
+import { LoggedinComponent } from '../loggedin';
+import { NoContentComponent } from '../no-content';
 import { Title } from './title';
+import { AuthService } from '../loggedin';
+import { ROUTES } from '../app.routes';
 
 describe(`Home`, () => {
   let comp: HomeComponent;
@@ -25,10 +31,14 @@ describe(`Home`, () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      imports: [
+        RouterTestingModule.withRoutes(ROUTES)
+      ],
+      declarations: [HomeComponent, LoggedinComponent, NoContentComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         BaseRequestOptions,
+        AuthService,
         MockBackend,
         {
           provide: Http,
@@ -41,7 +51,7 @@ describe(`Home`, () => {
         Title,
       ]
     })
-    .compileComponents(); // compile template and css
+      .compileComponents(); // compile template and css
   }));
 
   // synchronous beforeEach

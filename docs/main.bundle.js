@@ -756,7 +756,7 @@ exports.push([module.i, "/*styles for home content only*/\n\n#alertError.active 
 /***/ 726:
 /***/ function(module, exports) {
 
-module.exports = "e2e mode: {{e2eMode}}\n"
+module.exports = "e2e mode: {{e2eMode}}\nmock login data: <br>\n- company name: 111 <br>\n- username: 222 <br>\n- password: 333 <br>\n"
 
 /***/ },
 

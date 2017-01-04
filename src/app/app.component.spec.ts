@@ -61,4 +61,15 @@ describe(`App`, () => {
     expect(console.log).toHaveBeenCalled();
   });
 
+   it('should be logged in with correct data', async(inject([AuthService],
+    (auth: AuthService) => {
+      expect(auth.isLoggedIn()).toBeFalsy();
+      auth.trylogin({ companyName: '111', username: '222', password: '333', rememberMe: true });
+
+      setTimeout(() => {
+        expect(auth.isLoggedIn()).toBeTruthy();
+      })
+
+    })));
+
 });
